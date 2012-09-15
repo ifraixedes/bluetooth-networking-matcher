@@ -1,5 +1,22 @@
 <resources>
     <string name="prefs_name">prefs</string>
+    <string name="pref_delay">delay</string>
+    
+ 	<string-array name="pref_delay_values">
+        <item>1</item>
+        <item>2</item>
+        <item>5</item>
+        <item>10</item>
+        <item>30</item>
+    </string-array>
+    
+
+    <plurals name="pref_delay_text">
+        <item quantity="one">1 Minute</item>
+        <item quantity="other">%d Minutes</item>
+    </plurals>
+    
+    <string name="service">bt_service</string>
 
     <string name="app_name">BT Networking Matcher</string>
     <string name="hello_world">Hello world!</string>

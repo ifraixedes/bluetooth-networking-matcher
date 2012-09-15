@@ -28,7 +28,7 @@ public class AppDAOFactory {
 	                "CREATE TABLE IF NOT EXIST BluetoothDevices (" +
 	                "macAddr TEXT PRIMARY KEY ON CONFLICT ABORT, " +
 	                "pubName TEXT DEFAULT NULL, " +
-	                "matches INTEGER DEFAULT 0" +
+	                "matches INTEGER DEFAULT 1" +
 	                ");";
 
 	    public BtNwMatcherOpenHelper(Context context) {

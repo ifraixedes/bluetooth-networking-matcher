@@ -71,6 +71,7 @@ public class BluetoothService extends Service {
 					} catch (BluetoothException bte) {
 						bte.printStackTrace();
 						killService();
+						break;
 					}
 				}
 

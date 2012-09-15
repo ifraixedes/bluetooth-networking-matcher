@@ -37,14 +37,23 @@ public class Sniffer {
 	}
 
 	public void fetchDeveices() throws BluetoothException {
-
+		if(!btAdpater.isEnabled())
+		{
+			BluetoothException ex = new BluetoothException(
+					"The bluetooth device is turned off");
+			Log.e(_TAG, "Bluetooth device is turned off", ex);
+			throw ex;
+			
+		}
+/*
 		if ((!btAdpater.cancelDiscovery()) || (!btAdpater.startDiscovery())) {
 			BluetoothException ex = new BluetoothException(
 					"The bluetooth device is turned off");
 			Log.e(_TAG, "Bluetooth device is turned off", ex);
 			throw ex;
-		}
-
+		}*/
+		
+		btAdpater.startDiscovery();
 	}
 
 
@@ -76,14 +85,7 @@ public class Sniffer {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			 String action = intent.getAction();
-		        // When discovery finds a device
-		        if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-		            // Get the BluetoothDevice object from the Intent
-		            BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-		            // Store the information of the found device
-		            dao.updateDeviceInfo(device);
-		        }
+			// TODO Auto-generated method stub
 
 		}
 

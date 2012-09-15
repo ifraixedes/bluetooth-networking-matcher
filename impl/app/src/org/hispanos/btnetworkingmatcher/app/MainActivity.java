@@ -128,7 +128,7 @@ public class MainActivity extends Activity implements OnItemSelectedListener {
 	}
 	
 	private boolean isServiceRunning() {
-		return preferences.getBoolean(getString(R.string.prefs_name), false);
+		return preferences.getBoolean(getString(R.string.service), false);
 	}
 	
 	private void startBluetoothService() {

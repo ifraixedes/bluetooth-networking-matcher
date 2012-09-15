@@ -1,6 +1,7 @@
 package org.hispanos.btnetworkingmatcher.app.service;
 
 import org.hispanos.btnetworkingmatcher.app.R;
+import org.hispanos.btnetworkingmatcher.app.bluetooth.BluetoothException;
 import org.hispanos.btnetworkingmatcher.app.bluetooth.Sniffer;
 
 import android.app.Service;
@@ -41,7 +42,7 @@ public class BluetoothService extends Service {
 
 	@Override
 	public void onCreate() {
-		btSniffer = new Sniffer();
+		btSniffer = new Sniffer(this.getApplicationContext());
 		preferences = getApplicationContext().getSharedPreferences(getString(R.string.prefs_name),0);
 	}
 
@@ -62,11 +63,13 @@ public class BluetoothService extends Service {
 				int delay = Integer.parseInt(preferences.getString(var_delay, default_delay)) * 1000;
 				while(true)
 				{
-					btSniffer.fetchDeveices();
 					try {
+						btSniffer.fetchDeveices();
 						Thread.sleep(delay);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
+					} catch (BluetoothException bte) {
+						bte.printStackTrace();
 					}
 				}
 

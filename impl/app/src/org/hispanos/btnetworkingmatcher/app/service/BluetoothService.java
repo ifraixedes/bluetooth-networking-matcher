@@ -3,6 +3,7 @@ package org.hispanos.btnetworkingmatcher.app.service;
 import org.hispanos.btnetworkingmatcher.app.R;
 import org.hispanos.btnetworkingmatcher.app.bluetooth.BluetoothException;
 import org.hispanos.btnetworkingmatcher.app.bluetooth.Sniffer;
+import org.hispanos.btnetworkingmatcher.app.storage.BluetoothDAO;
 
 import android.app.Service;
 import android.content.Intent;
@@ -36,13 +37,13 @@ public class BluetoothService extends Service {
 
 	@Override
 	public IBinder onBind(Intent intent) {
-		// TODO Auto-generated method stub
 		return mBinder;
 	}
 
 	@Override
 	public void onCreate() {
-		btSniffer = new Sniffer(this.getApplicationContext());
+		BluetoothDAO btDAO = new BluetoothDAO();
+		btSniffer = new Sniffer(this.getApplicationContext(), btDAO);
 		preferences = getApplicationContext().getSharedPreferences(getString(R.string.prefs_name),0);
 	}
 
@@ -59,8 +60,7 @@ public class BluetoothService extends Service {
 			public void run() {
 
 				String var_delay = res.getString(R.string.pref_delay);
-				String default_delay = res.getStringArray(R.array.pref_delay_values)[0];
-				int delay = Integer.parseInt(preferences.getString(var_delay, default_delay)) * 1000;
+				int delay = preferences.getInt(var_delay, 60000);
 				while(true)
 				{
 					try {
@@ -70,6 +70,7 @@ public class BluetoothService extends Service {
 						e.printStackTrace();
 					} catch (BluetoothException bte) {
 						bte.printStackTrace();
+						killService();
 					}
 				}
 
@@ -80,9 +81,18 @@ public class BluetoothService extends Service {
 		// stopped, so return sticky.
 		return START_STICKY;
 	}
+	
+	public void killService()
+	{
+		preferences.edit()
+		.putBoolean(getString(R.string.service), false)
+		.commit();
+		this.stopSelf();
+	}
 
 	@Override
 	public void onDestroy() {
+		Log.i(LOG_TAG, "Service Stoppped");
 		preferences.edit()
 		.putBoolean(getString(R.string.service), false)
 		.commit();

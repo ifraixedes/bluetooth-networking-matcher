@@ -25,7 +25,7 @@ public class AppDAOFactory {
 	    private static final int DATABASE_VERSION = 1;
 	    private static final String DATABASE_NAME = "BTNetworkingMatcher.db";
 	    private static final String CREATE_TABLES =
-	                "CREATE TABLE IF NOT EXIST BluetoothDevices (" +
+	                "CREATE TABLE IF NOT EXISTS BluetoothDevices (" +
 	                "macAddr TEXT PRIMARY KEY ON CONFLICT ABORT, " +
 	                "pubName TEXT DEFAULT NULL, " +
 	                "matches INTEGER DEFAULT 1" +

@@ -3,7 +3,7 @@ package org.hispanos.btnetworkingmatcher.app.service;
 import org.hispanos.btnetworkingmatcher.app.R;
 import org.hispanos.btnetworkingmatcher.app.bluetooth.BluetoothException;
 import org.hispanos.btnetworkingmatcher.app.bluetooth.Sniffer;
-import org.hispanos.btnetworkingmatcher.app.storage.BluetoothDAO;
+import org.hispanos.btnetworkingmatcher.app.storage.AppDAOFactory;
 
 import android.app.Service;
 import android.content.Intent;
@@ -42,8 +42,8 @@ public class BluetoothService extends Service {
 
 	@Override
 	public void onCreate() {
-		BluetoothDAO btDAO = new BluetoothDAO();
-		btSniffer = new Sniffer(this.getApplicationContext(), btDAO);
+		AppDAOFactory appDAO = new AppDAOFactory(this.getApplicationContext());
+		btSniffer = new Sniffer(this.getApplicationContext(), appDAO.getBluetoothDAO());
 		preferences = getApplicationContext().getSharedPreferences(getString(R.string.prefs_name),0);
 	}
 

@@ -7,7 +7,7 @@
 
     <ToggleButton
         android:id="@+id/bluetooth_toggle_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center|center_vertical|center_horizontal"
         android:text="@string/bluetooth_toggle_button_text"
@@ -30,9 +30,16 @@
 
     <Button
         android:id="@+id/searching_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/searching_button_text_start" 
         android:onClick="onClickSearchingButton" />
+    
+    <Button
+        android:id="@+id/show_devices_list_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/show_devices_list_button_text" 
+        android:onClick="onClickShowDevicesListButton" />
 
 </LinearLayout>

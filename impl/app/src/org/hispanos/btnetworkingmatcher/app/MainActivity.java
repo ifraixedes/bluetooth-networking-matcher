@@ -138,4 +138,8 @@ public class MainActivity extends Activity implements OnItemSelectedListener {
 	private void stopBluetoothService() {
 		stopService(new Intent(this, BluetoothService.class));
 	}
+	
+	public void onClickShowDevicesListButton(View v) {
+		startActivity(new Intent(this, DeviceListActivity.class));
+	}
 }
